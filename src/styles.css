@@ -2,6 +2,14 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/*
+ * Design System: Ashara Surat 1447H
+ * Primary: Warm Ivory (#fdf6ec) | Accent: Deep Burgundy (#7c2d42)
+ *
+ * @theme block → Tailwind v4 utility classes (bg-ivory, text-burgundy-700, etc.)
+ * :root block  → Semantic CSS variables for component styles
+ */
+
 @theme {
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-serif: Georgia, serif;
@@ -104,7 +112,7 @@ body {
   background:
     radial-gradient(1100px 620px at -8% -10%, var(--hero-a), transparent 58%),
     radial-gradient(1050px 620px at 112% -12%, var(--hero-b), transparent 62%),
-    radial-gradient(720px 380px at 50% 115%, rgba(79, 184, 178, 0.1), transparent 68%),
+    radial-gradient(720px 380px at 50% 115%, rgba(124, 45, 66, 0.1), transparent 68%),
     linear-gradient(180deg, color-mix(in oklab, var(--sand) 68%, white) 0%, var(--foam) 44%, var(--bg-base) 100%);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -120,8 +128,8 @@ body::before {
   opacity: 0.28;
   background:
     radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.8), transparent 34%),
-    radial-gradient(circle at 78% 26%, rgba(79, 184, 178, 0.2), transparent 42%),
-    radial-gradient(circle at 42% 82%, rgba(47, 106, 74, 0.14), transparent 36%);
+    radial-gradient(circle at 78% 26%, rgba(124, 45, 66, 0.2), transparent 42%),
+    radial-gradient(circle at 42% 82%, rgba(124, 45, 66, 0.14), transparent 36%);
 }
 
 body::after {
@@ -140,13 +148,13 @@ body::after {
 
 a {
   color: var(--lagoon-deep);
-  text-decoration-color: rgba(50, 143, 151, 0.4);
+  text-decoration-color: rgba(124, 45, 66, 0.4);
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
 
 a:hover {
-  color: #246f76;
+  color: var(--sea-ink);
 }
 
 code {
@@ -180,8 +188,8 @@ pre code {
   background: linear-gradient(165deg, var(--surface-strong), var(--surface));
   box-shadow:
     0 1px 0 var(--inset-glint) inset,
-    0 22px 44px rgba(30, 90, 72, 0.1),
-    0 6px 18px rgba(23, 58, 64, 0.08);
+    0 22px 44px rgba(124, 45, 66, 0.1),
+    0 6px 18px rgba(107, 31, 53, 0.08);
   backdrop-filter: blur(4px);
 }
 
@@ -189,8 +197,8 @@ pre code {
   background: linear-gradient(165deg, color-mix(in oklab, var(--surface-strong) 93%, white 7%), var(--surface));
   box-shadow:
     0 1px 0 var(--inset-glint) inset,
-    0 18px 34px rgba(30, 90, 72, 0.1),
-    0 4px 14px rgba(23, 58, 64, 0.06);
+    0 18px 34px rgba(124, 45, 66, 0.1),
+    0 4px 14px rgba(107, 31, 53, 0.06);
 }
 
 .feature-card:hover {
@@ -230,7 +238,7 @@ a {
   height: 2px;
   transform: scaleX(0);
   transform-origin: left;
-  background: linear-gradient(90deg, var(--lagoon), #7ed3bf);
+  background: linear-gradient(90deg, var(--lagoon), var(--lagoon));
   transition: transform 170ms ease;
 }
 

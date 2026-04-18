@@ -28,4 +28,13 @@ describe('design tokens', () => {
   it('defines serif font family', () => {
     expect(css).toContain('--font-serif: Georgia, serif')
   })
+
+  it('has no leftover teal template colors', () => {
+    // These are hex values from the original template palette
+    expect(css).not.toContain('#246f76')
+    expect(css).not.toContain('#7ed3bf')
+    expect(css).not.toContain('79, 184, 178')  // rgba teal
+    expect(css).not.toContain('47, 106, 74')   // rgba green
+    expect(css).not.toContain('50, 143, 151')  // rgba teal
+  })
 })
