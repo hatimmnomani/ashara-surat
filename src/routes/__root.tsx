@@ -1,8 +1,8 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
-import Footer from '../components/Footer'
-import Header from '../components/Header'
+import { Nav } from '../components/layout/Nav'
+import { Footer } from '../components/layout/Footer'
 
 import appCss from '../styles.css?url'
 
@@ -19,7 +19,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'Ashara Mubaraka Surat 1447H',
       },
     ],
     links: [
@@ -39,10 +39,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
-      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
-        <Header />
-        {children}
-        <Footer />
+      <body className="font-sans antialiased [overflow-wrap:anywhere]">
+        <div className="min-h-screen flex flex-col bg-ivory">
+          <Nav />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
         <TanStackDevtools
           config={{
             position: 'bottom-right',
