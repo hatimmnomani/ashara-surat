@@ -5,7 +5,8 @@ interface Doc { id: string; name: string; category?: string; file_url: string }
 
 export const Route = createFileRoute('/documents')({
   loader: async () => {
-    const { data } = await supabase.from('documents').select('*').order('category').order('name')
+    const { data, error } = await supabase.from('documents').select('*').order('category').order('name')
+    if (error) throw new Error(error.message)
     return { docs: (data ?? []) as Doc[] }
   },
   component: function DocumentsPage() {

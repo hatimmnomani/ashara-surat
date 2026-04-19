@@ -7,11 +7,12 @@ interface ScheduleEvent {
 
 export const Route = createFileRoute('/schedule')({
   loader: async () => {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('schedule_events')
       .select('*')
       .order('day', { ascending: true })
       .order('event_time', { ascending: true })
+    if (error) throw new Error(error.message)
     return { events: (data ?? []) as ScheduleEvent[] }
   },
   component: function SchedulePage() {

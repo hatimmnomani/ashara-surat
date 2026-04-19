@@ -5,7 +5,8 @@ interface GalleryImage { id: string; url: string; caption?: string }
 
 export const Route = createFileRoute('/gallery')({
   loader: async () => {
-    const { data } = await supabase.from('gallery_images').select('*').order('uploaded_at', { ascending: false })
+    const { data, error } = await supabase.from('gallery_images').select('*').order('uploaded_at', { ascending: false })
+    if (error) throw new Error(error.message)
     return { images: (data ?? []) as GalleryImage[] }
   },
   component: function GalleryPage() {
@@ -16,7 +17,7 @@ export const Route = createFileRoute('/gallery')({
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
           {images.map(img => (
             <div key={img.id} className="aspect-square overflow-hidden rounded-xl bg-burgundy-50">
-              <img src={img.url} alt={img.caption ?? ''} className="w-full h-full object-cover hover:scale-105 transition-transform" />
+              <img src={img.url} alt={img.caption ?? ''} loading="lazy" className="w-full h-full object-cover hover:scale-105 transition-transform" />
             </div>
           ))}
         </div>

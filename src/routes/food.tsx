@@ -5,7 +5,8 @@ interface FoodZone { id: string; zone_name: string; location?: string; serving_t
 
 export const Route = createFileRoute('/food')({
   loader: async () => {
-    const { data } = await supabase.from('food_zones').select('*').order('zone_name')
+    const { data, error } = await supabase.from('food_zones').select('*').order('zone_name')
+    if (error) throw new Error(error.message)
     return { zones: (data ?? []) as FoodZone[] }
   },
   component: function FoodPage() {

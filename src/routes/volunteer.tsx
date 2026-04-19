@@ -16,14 +16,18 @@ export const Route = createFileRoute('/volunteer')({
     const [form, setForm] = useState({ name: '', its_id: '', phone: '', email: '', role: '', zone: '' })
     const [submitted, setSubmitted] = useState(false)
     const [error, setError] = useState('')
+    const [submitting, setSubmitting] = useState(false)
 
     async function handleSubmit(e: React.FormEvent) {
       e.preventDefault()
+      setSubmitting(true)
       try {
         await submitVolunteer({ data: form })
         setSubmitted(true)
       } catch (err: unknown) {
         setError(err instanceof Error ? err.message : 'Submission failed. Please try again.')
+      } finally {
+        setSubmitting(false)
       }
     }
 
@@ -62,9 +66,9 @@ export const Route = createFileRoute('/volunteer')({
             </div>
           ))}
           {error && <p className="text-red-500 text-sm">{error}</p>}
-          <button type="submit"
-            className="w-full bg-burgundy-700 text-ivory py-2.5 rounded-lg font-semibold hover:bg-burgundy-800 transition-colors">
-            Submit Signup
+          <button type="submit" disabled={submitting}
+            className="w-full bg-burgundy-700 text-ivory py-2.5 rounded-lg font-semibold hover:bg-burgundy-800 transition-colors disabled:opacity-50">
+            {submitting ? 'Submitting...' : 'Submit Signup'}
           </button>
         </form>
       </div>

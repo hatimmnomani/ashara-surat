@@ -5,7 +5,8 @@ interface TransportRoute { id: string; route_name: string; stops?: string[]; tim
 
 export const Route = createFileRoute('/transport')({
   loader: async () => {
-    const { data } = await supabase.from('transport_routes').select('*').order('route_name')
+    const { data, error } = await supabase.from('transport_routes').select('*').order('route_name')
+    if (error) throw new Error(error.message)
     return { routes: (data ?? []) as TransportRoute[] }
   },
   component: function TransportPage() {

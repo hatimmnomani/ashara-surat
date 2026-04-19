@@ -5,7 +5,8 @@ interface Building { id: string; building: string; zone?: string; floor?: string
 
 export const Route = createFileRoute('/accommodation')({
   loader: async () => {
-    const { data } = await supabase.from('accommodation').select('*').order('zone')
+    const { data, error } = await supabase.from('accommodation').select('*').order('zone')
+    if (error) throw new Error(error.message)
     return { buildings: (data ?? []) as Building[] }
   },
   component: function AccommodationPage() {
