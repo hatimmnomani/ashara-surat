@@ -1,87 +1,59 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { CountdownTimer } from '../components/ui/CountdownTimer'
+import { ModuleCard } from '../components/ui/ModuleCard'
+import { supabase } from '../lib/supabase'
 
-export const Route = createFileRoute('/')({ component: App })
+const MODULES = [
+  { icon: '📅', title: 'Schedule',      description: 'Waaz timings & daily Majlis',    to: '/schedule' },
+  { icon: '🕌', title: 'Venue & Maps',  description: 'Locations & zone layouts',        to: '/venue' },
+  { icon: '🏠', title: 'Accommodation', description: 'Buildings & zone info',           to: '/accommodation' },
+  { icon: '🚌', title: 'Transport',     description: 'Bus routes & shuttles',           to: '/transport' },
+  { icon: '🍽️', title: 'Food & Thaal', description: 'FMB zones & timings',            to: '/food' },
+  { icon: '🙋', title: 'Volunteer',     description: 'Sign up to serve',                to: '/volunteer' },
+  { icon: '📢', title: 'Announcements', description: 'Latest news & notices',           to: '/announcements' },
+  { icon: '📸', title: 'Gallery',       description: 'Photos & memories',               to: '/gallery' },
+  { icon: '📄', title: 'Documents',     description: 'Guides & downloadable forms',     to: '/documents' },
+  { icon: 'ℹ️', title: 'About Surat',  description: 'City guide for visitors',          to: '/about-surat' },
+  { icon: '💬', title: 'Helpdesk',      description: 'AI chat support',                 to: '/helpdesk' },
+]
 
-function App() {
-  return (
-    <main className="page-wrap px-4 pb-8 pt-14">
-      <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-        <div className="pointer-events-none absolute -left-20 -top-24 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(79,184,178,0.32),transparent_66%)]" />
-        <div className="pointer-events-none absolute -bottom-20 -right-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,106,74,0.18),transparent_66%)]" />
-        <p className="island-kicker mb-3">TanStack Start Base Template</p>
-        <h1 className="display-title mb-5 max-w-3xl text-4xl leading-[1.02] font-bold tracking-tight text-[var(--sea-ink)] sm:text-6xl">
-          Start simple, ship quickly.
-        </h1>
-        <p className="mb-8 max-w-2xl text-base text-[var(--sea-ink-soft)] sm:text-lg">
-          This base starter intentionally keeps things light: two routes, clean
-          structure, and the essentials you need to build from scratch.
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="/about"
-            className="rounded-full border border-[rgba(50,143,151,0.3)] bg-[rgba(79,184,178,0.14)] px-5 py-2.5 text-sm font-semibold text-[var(--lagoon-deep)] no-underline transition hover:-translate-y-0.5 hover:bg-[rgba(79,184,178,0.24)]"
-          >
-            About This Starter
-          </a>
-          <a
-            href="https://tanstack.com/router"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-[rgba(23,58,64,0.2)] bg-white/50 px-5 py-2.5 text-sm font-semibold text-[var(--sea-ink)] no-underline transition hover:-translate-y-0.5 hover:border-[rgba(23,58,64,0.35)]"
-          >
-            Router Guide
-          </a>
+export const Route = createFileRoute('/')({
+  loader: async () => {
+    const { data } = await supabase
+      .from('announcements')
+      .select('id, title, body')
+      .eq('pinned', true)
+      .order('published_at', { ascending: false })
+      .limit(3)
+    return { pinned: data ?? [] }
+  },
+  component: function HomePage() {
+    const { pinned } = Route.useLoaderData()
+    return (
+      <div className="max-w-5xl mx-auto px-4 py-10">
+        <div className="text-center mb-10">
+          <div className="w-16 h-px bg-gradient-to-r from-transparent via-burgundy-400 to-transparent mx-auto mb-4" />
+          <h1 className="text-4xl font-serif font-bold text-burgundy-700">Ashara Mubaraka</h1>
+          <p className="text-burgundy-400 uppercase tracking-widest text-sm mt-1">Surat • 1447H</p>
+          <div className="w-16 h-px bg-gradient-to-r from-transparent via-burgundy-400 to-transparent mx-auto mt-4 mb-8" />
+          <CountdownTimer />
         </div>
-      </section>
 
-      <section className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          [
-            'Type-Safe Routing',
-            'Routes and links stay in sync across every page.',
-          ],
-          [
-            'Server Functions',
-            'Call server code from your UI without creating API boilerplate.',
-          ],
-          [
-            'Streaming by Default',
-            'Ship progressively rendered responses for faster experiences.',
-          ],
-          [
-            'Tailwind Native',
-            'Design quickly with utility-first styling and reusable tokens.',
-          ],
-        ].map(([title, desc], index) => (
-          <article
-            key={title}
-            className="island-shell feature-card rise-in rounded-2xl p-5"
-            style={{ animationDelay: `${index * 90 + 80}ms` }}
-          >
-            <h2 className="mb-2 text-base font-semibold text-[var(--sea-ink)]">
-              {title}
-            </h2>
-            <p className="m-0 text-sm text-[var(--sea-ink-soft)]">{desc}</p>
-          </article>
-        ))}
-      </section>
+        {pinned.length > 0 && (
+          <div className="mb-8 space-y-2">
+            {(pinned as { id: string; title: string; body: string }[]).map(a => (
+              <div key={a.id} className="bg-burgundy-50 border-l-4 border-burgundy-400 px-4 py-3 rounded-r-lg">
+                <p className="font-semibold text-burgundy-700 text-sm">{a.title}</p>
+                <p className="text-sm text-gray-600 mt-0.5">{a.body}</p>
+              </div>
+            ))}
+          </div>
+        )}
 
-      <section className="island-shell mt-8 rounded-2xl p-6">
-        <p className="island-kicker mb-2">Quick Start</p>
-        <ul className="m-0 list-disc space-y-2 pl-5 text-sm text-[var(--sea-ink-soft)]">
-          <li>
-            Edit <code>src/routes/index.tsx</code> to customize the home page.
-          </li>
-          <li>
-            Update <code>src/components/Header.tsx</code> and{' '}
-            <code>src/components/Footer.tsx</code> for brand links.
-          </li>
-          <li>
-            Add routes in <code>src/routes</code> and tweak visual tokens in{' '}
-            <code>src/styles.css</code>.
-          </li>
-        </ul>
-      </section>
-    </main>
-  )
-}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {MODULES.map(m => <ModuleCard key={m.to} {...m} />)}
+        </div>
+      </div>
+    )
+  },
+})
