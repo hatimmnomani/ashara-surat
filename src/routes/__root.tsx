@@ -3,6 +3,7 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import { Nav } from '../components/layout/Nav'
 import { Footer } from '../components/layout/Footer'
+import { ChatWidget } from '../components/helpdesk/ChatWidget'
 
 import appCss from '../styles.css?url'
 
@@ -46,6 +47,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <Outlet />
           </main>
           <Footer />
+          <ChatWidget />
         </div>
         <TanStackDevtools
           config={{
