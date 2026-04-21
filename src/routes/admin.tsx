@@ -14,6 +14,8 @@ export const Route = createFileRoute('/admin')({
         <a href="/admin/announcements" className="text-sm text-burgundy-200 hover:text-ivory transition-colors">Announcements</a>
         <a href="/admin/schedule" className="text-sm text-burgundy-200 hover:text-ivory transition-colors">Schedule</a>
         <a href="/admin/tickets" className="text-sm text-burgundy-200 hover:text-ivory transition-colors">Tickets</a>
+        <a href="/admin/gallery" className="text-sm text-burgundy-200 hover:text-ivory transition-colors">Gallery</a>
+        <a href="/admin/documents" className="text-sm text-burgundy-200 hover:text-ivory transition-colors">Documents</a>
         <a href="/" className="text-sm text-burgundy-400 hover:text-ivory ml-auto transition-colors">← View Site</a>
       </div>
       <div className="max-w-4xl mx-auto px-4 py-8">
