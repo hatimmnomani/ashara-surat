@@ -9,9 +9,89 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VolunteerRouteImport } from './routes/volunteer'
+import { Route as VenueRouteImport } from './routes/venue'
+import { Route as TransportRouteImport } from './routes/transport'
+import { Route as ScheduleRouteImport } from './routes/schedule'
+import { Route as HelpdeskRouteImport } from './routes/helpdesk'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as FoodRouteImport } from './routes/food'
+import { Route as DocumentsRouteImport } from './routes/documents'
+import { Route as AnnouncementsRouteImport } from './routes/announcements'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AccommodationRouteImport } from './routes/accommodation'
+import { Route as AboutSuratRouteImport } from './routes/about-surat'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
+import { Route as AdminTicketsRouteImport } from './routes/admin/tickets'
+import { Route as AdminScheduleRouteImport } from './routes/admin/schedule'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminGalleryRouteImport } from './routes/admin/gallery'
+import { Route as AdminDocumentsRouteImport } from './routes/admin/documents'
+import { Route as AdminAnnouncementsRouteImport } from './routes/admin/announcements'
 
+const VolunteerRoute = VolunteerRouteImport.update({
+  id: '/volunteer',
+  path: '/volunteer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VenueRoute = VenueRouteImport.update({
+  id: '/venue',
+  path: '/venue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransportRoute = TransportRouteImport.update({
+  id: '/transport',
+  path: '/transport',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScheduleRoute = ScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpdeskRoute = HelpdeskRouteImport.update({
+  id: '/helpdesk',
+  path: '/helpdesk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FoodRoute = FoodRouteImport.update({
+  id: '/food',
+  path: '/food',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentsRoute = DocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnnouncementsRoute = AnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccommodationRoute = AccommodationRouteImport.update({
+  id: '/accommodation',
+  path: '/accommodation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutSuratRoute = AboutSuratRouteImport.update({
+  id: '/about-surat',
+  path: '/about-surat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -22,35 +102,297 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminTicketsRoute = AdminTicketsRouteImport.update({
+  id: '/tickets',
+  path: '/tickets',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminScheduleRoute = AdminScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminGalleryRoute = AdminGalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDocumentsRoute = AdminDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-surat': typeof AboutSuratRoute
+  '/accommodation': typeof AccommodationRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/announcements': typeof AnnouncementsRoute
+  '/documents': typeof DocumentsRoute
+  '/food': typeof FoodRoute
+  '/gallery': typeof GalleryRoute
+  '/helpdesk': typeof HelpdeskRoute
+  '/schedule': typeof ScheduleRoute
+  '/transport': typeof TransportRoute
+  '/venue': typeof VenueRoute
+  '/volunteer': typeof VolunteerRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/documents': typeof AdminDocumentsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/schedule': typeof AdminScheduleRoute
+  '/admin/tickets': typeof AdminTicketsRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-surat': typeof AboutSuratRoute
+  '/accommodation': typeof AccommodationRoute
+  '/announcements': typeof AnnouncementsRoute
+  '/documents': typeof DocumentsRoute
+  '/food': typeof FoodRoute
+  '/gallery': typeof GalleryRoute
+  '/helpdesk': typeof HelpdeskRoute
+  '/schedule': typeof ScheduleRoute
+  '/transport': typeof TransportRoute
+  '/venue': typeof VenueRoute
+  '/volunteer': typeof VolunteerRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/documents': typeof AdminDocumentsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/schedule': typeof AdminScheduleRoute
+  '/admin/tickets': typeof AdminTicketsRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-surat': typeof AboutSuratRoute
+  '/accommodation': typeof AccommodationRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/announcements': typeof AnnouncementsRoute
+  '/documents': typeof DocumentsRoute
+  '/food': typeof FoodRoute
+  '/gallery': typeof GalleryRoute
+  '/helpdesk': typeof HelpdeskRoute
+  '/schedule': typeof ScheduleRoute
+  '/transport': typeof TransportRoute
+  '/venue': typeof VenueRoute
+  '/volunteer': typeof VolunteerRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/documents': typeof AdminDocumentsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/schedule': typeof AdminScheduleRoute
+  '/admin/tickets': typeof AdminTicketsRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/about-surat'
+    | '/accommodation'
+    | '/admin'
+    | '/announcements'
+    | '/documents'
+    | '/food'
+    | '/gallery'
+    | '/helpdesk'
+    | '/schedule'
+    | '/transport'
+    | '/venue'
+    | '/volunteer'
+    | '/admin/announcements'
+    | '/admin/documents'
+    | '/admin/gallery'
+    | '/admin/login'
+    | '/admin/schedule'
+    | '/admin/tickets'
+    | '/auth/callback'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to:
+    | '/'
+    | '/about'
+    | '/about-surat'
+    | '/accommodation'
+    | '/announcements'
+    | '/documents'
+    | '/food'
+    | '/gallery'
+    | '/helpdesk'
+    | '/schedule'
+    | '/transport'
+    | '/venue'
+    | '/volunteer'
+    | '/admin/announcements'
+    | '/admin/documents'
+    | '/admin/gallery'
+    | '/admin/login'
+    | '/admin/schedule'
+    | '/admin/tickets'
+    | '/auth/callback'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/about-surat'
+    | '/accommodation'
+    | '/admin'
+    | '/announcements'
+    | '/documents'
+    | '/food'
+    | '/gallery'
+    | '/helpdesk'
+    | '/schedule'
+    | '/transport'
+    | '/venue'
+    | '/volunteer'
+    | '/admin/announcements'
+    | '/admin/documents'
+    | '/admin/gallery'
+    | '/admin/login'
+    | '/admin/schedule'
+    | '/admin/tickets'
+    | '/auth/callback'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AboutSuratRoute: typeof AboutSuratRoute
+  AccommodationRoute: typeof AccommodationRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AnnouncementsRoute: typeof AnnouncementsRoute
+  DocumentsRoute: typeof DocumentsRoute
+  FoodRoute: typeof FoodRoute
+  GalleryRoute: typeof GalleryRoute
+  HelpdeskRoute: typeof HelpdeskRoute
+  ScheduleRoute: typeof ScheduleRoute
+  TransportRoute: typeof TransportRoute
+  VenueRoute: typeof VenueRoute
+  VolunteerRoute: typeof VolunteerRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/volunteer': {
+      id: '/volunteer'
+      path: '/volunteer'
+      fullPath: '/volunteer'
+      preLoaderRoute: typeof VolunteerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/venue': {
+      id: '/venue'
+      path: '/venue'
+      fullPath: '/venue'
+      preLoaderRoute: typeof VenueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transport': {
+      id: '/transport'
+      path: '/transport'
+      fullPath: '/transport'
+      preLoaderRoute: typeof TransportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/schedule': {
+      id: '/schedule'
+      path: '/schedule'
+      fullPath: '/schedule'
+      preLoaderRoute: typeof ScheduleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/helpdesk': {
+      id: '/helpdesk'
+      path: '/helpdesk'
+      fullPath: '/helpdesk'
+      preLoaderRoute: typeof HelpdeskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/food': {
+      id: '/food'
+      path: '/food'
+      fullPath: '/food'
+      preLoaderRoute: typeof FoodRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documents': {
+      id: '/documents'
+      path: '/documents'
+      fullPath: '/documents'
+      preLoaderRoute: typeof DocumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/announcements': {
+      id: '/announcements'
+      path: '/announcements'
+      fullPath: '/announcements'
+      preLoaderRoute: typeof AnnouncementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accommodation': {
+      id: '/accommodation'
+      path: '/accommodation'
+      fullPath: '/accommodation'
+      preLoaderRoute: typeof AccommodationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-surat': {
+      id: '/about-surat'
+      path: '/about-surat'
+      fullPath: '/about-surat'
+      preLoaderRoute: typeof AboutSuratRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -65,12 +407,103 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/tickets': {
+      id: '/admin/tickets'
+      path: '/tickets'
+      fullPath: '/admin/tickets'
+      preLoaderRoute: typeof AdminTicketsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/schedule': {
+      id: '/admin/schedule'
+      path: '/schedule'
+      fullPath: '/admin/schedule'
+      preLoaderRoute: typeof AdminScheduleRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/gallery': {
+      id: '/admin/gallery'
+      path: '/gallery'
+      fullPath: '/admin/gallery'
+      preLoaderRoute: typeof AdminGalleryRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/documents': {
+      id: '/admin/documents'
+      path: '/documents'
+      fullPath: '/admin/documents'
+      preLoaderRoute: typeof AdminDocumentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/announcements': {
+      id: '/admin/announcements'
+      path: '/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AdminAnnouncementsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminAnnouncementsRoute: typeof AdminAnnouncementsRoute
+  AdminDocumentsRoute: typeof AdminDocumentsRoute
+  AdminGalleryRoute: typeof AdminGalleryRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminScheduleRoute: typeof AdminScheduleRoute
+  AdminTicketsRoute: typeof AdminTicketsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnnouncementsRoute: AdminAnnouncementsRoute,
+  AdminDocumentsRoute: AdminDocumentsRoute,
+  AdminGalleryRoute: AdminGalleryRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminScheduleRoute: AdminScheduleRoute,
+  AdminTicketsRoute: AdminTicketsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AboutSuratRoute: AboutSuratRoute,
+  AccommodationRoute: AccommodationRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AnnouncementsRoute: AnnouncementsRoute,
+  DocumentsRoute: DocumentsRoute,
+  FoodRoute: FoodRoute,
+  GalleryRoute: GalleryRoute,
+  HelpdeskRoute: HelpdeskRoute,
+  ScheduleRoute: ScheduleRoute,
+  TransportRoute: TransportRoute,
+  VenueRoute: VenueRoute,
+  VolunteerRoute: VolunteerRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
