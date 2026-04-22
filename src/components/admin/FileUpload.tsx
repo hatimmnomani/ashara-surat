@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { uploadFile } from '../../routes/api/upload'
+import { uploadFile } from '../../routes/api/-upload'
 
 interface Props {
   folder: string
