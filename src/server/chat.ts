@@ -12,7 +12,7 @@ Always respond in English.`
 const RATE_LIMIT = parseInt(process.env.CHAT_RATE_LIMIT ?? '5', 10)
 
 export const createChatSession = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { name: string; phone: string; email: string; whatsapp: string })
+  .inputValidator((d: unknown) => d as { name: string; phone: string; email: string; whatsapp: string })
   .handler(async ({ data }) => {
     const { data: session, error } = await supabaseAdmin
       .from('chat_sessions')
@@ -31,7 +31,7 @@ export const createChatSession = createServerFn({ method: 'POST' })
   })
 
 export const sendChatMessage = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { sessionId: string; content: string })
+  .inputValidator((d: unknown) => d as { sessionId: string; content: string })
   .handler(async ({ data }) => {
     const { data: session, error: sessionErr } = await supabaseAdmin
       .from('chat_sessions')
@@ -74,7 +74,7 @@ export const sendChatMessage = createServerFn({ method: 'POST' })
   })
 
 export const createTicket = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { sessionId: string; escalationChannel: 'email' | 'whatsapp'; summary: string })
+  .inputValidator((d: unknown) => d as { sessionId: string; escalationChannel: 'email' | 'whatsapp'; summary: string })
   .handler(async ({ data }) => {
     const { error } = await supabaseAdmin.from('support_tickets').insert({
       session_id: data.sessionId,

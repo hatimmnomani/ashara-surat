@@ -7,7 +7,7 @@ import { useState } from 'react'
 interface ScheduleEvent { id: string; day: number; event_time: string; title: string; description?: string; location?: string }
 
 const upsertEvent = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { id?: string; day: number; event_time: string; title: string; description?: string; location?: string })
+  .inputValidator((d: unknown) => d as { id?: string; day: number; event_time: string; title: string; description?: string; location?: string })
   .handler(async ({ data }) => {
     const { id, ...fields } = data
     if (id) {
@@ -19,7 +19,7 @@ const upsertEvent = createServerFn({ method: 'POST' })
   })
 
 const deleteEvent = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { id: string })
+  .inputValidator((d: unknown) => d as { id: string })
   .handler(async ({ data }) => {
     await supabaseAdmin.from('schedule_events').delete().eq('id', data.id)
     return { success: true }

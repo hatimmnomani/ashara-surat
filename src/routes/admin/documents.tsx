@@ -9,19 +9,20 @@ import { useState } from 'react'
 interface Doc { id: string; name: string; category?: string; file_url: string; r2_key?: string }
 
 const addDocument = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { name: string; category: string; file_url: string; r2_key: string })
+  .inputValidator((d: unknown) => d as { name: string; category: string; file_url: string; r2_key: string })
   .handler(async ({ data }) => {
     const { error } = await supabaseAdmin.from('documents').insert({
       name: data.name,
       category: data.category || null,
       file_url: data.file_url,
+      r2_key: data.r2_key || null,
     })
     if (error) throw new Error(error.message)
     return { success: true }
   })
 
 const deleteDocument = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { id: string; r2_key?: string })
+  .inputValidator((d: unknown) => d as { id: string; r2_key?: string })
   .handler(async ({ data }) => {
     if (data.r2_key) {
       try { await deleteFromR2(data.r2_key) } catch { /* ignore */ }

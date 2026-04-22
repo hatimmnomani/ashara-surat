@@ -9,19 +9,20 @@ import { useState } from 'react'
 interface GalleryImage { id: string; url: string; caption?: string; event_tag?: string; r2_key?: string }
 
 const addGalleryImage = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { url: string; caption: string; event_tag: string; r2_key: string })
+  .inputValidator((d: unknown) => d as { url: string; caption: string; event_tag: string; r2_key: string })
   .handler(async ({ data }) => {
     const { error } = await supabaseAdmin.from('gallery_images').insert({
       url: data.url,
       caption: data.caption || null,
       event_tag: data.event_tag || null,
+      r2_key: data.r2_key || null,
     })
     if (error) throw new Error(error.message)
     return { success: true }
   })
 
 const deleteGalleryImage = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { id: string; r2_key?: string })
+  .inputValidator((d: unknown) => d as { id: string; r2_key?: string })
   .handler(async ({ data }) => {
     if (data.r2_key) {
       try { await deleteFromR2(data.r2_key) } catch { /* ignore if already deleted */ }

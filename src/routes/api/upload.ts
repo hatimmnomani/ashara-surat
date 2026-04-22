@@ -10,7 +10,7 @@ interface UploadInput {
 }
 
 export const uploadFile = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as UploadInput)
+  .inputValidator((d: unknown) => d as UploadInput)
   .handler(async ({ data }) => {
     const { base64, filename, contentType, folder } = data
     const buffer = Buffer.from(base64, 'base64')

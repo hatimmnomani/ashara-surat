@@ -14,7 +14,7 @@ interface Ticket {
 }
 
 const resolveTicket = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { id: string })
+  .inputValidator((d: unknown) => d as { id: string })
   .handler(async ({ data }) => {
     await supabaseAdmin
       .from('support_tickets')

@@ -1,5 +1,5 @@
 # Ashara Surat Info — Design Spec
-**Date:** 2026-04-17  
+**Date:** 2026-04-17
 **Status:** Approved
 
 ---
@@ -88,7 +88,7 @@ chat_messages    (id, session_id, role, content, created_at)
 support_tickets  (id, session_id, summary, escalation_channel, escalated_at, resolved_at)
 ```
 
-**Supabase Realtime** enabled on `announcements` for live push to all visitors.  
+**Supabase Realtime** enabled on `announcements` for live push to all visitors.
 **Storage buckets:** `gallery`, `documents`.
 
 ---

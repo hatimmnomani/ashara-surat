@@ -4,7 +4,7 @@ import { supabaseAdmin } from '../lib/supabase'
 import { useState } from 'react'
 
 const submitVolunteer = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { name: string; its_id: string; phone: string; email: string; role: string; zone: string })
+  .inputValidator((d: unknown) => d as { name: string; its_id: string; phone: string; email: string; role: string; zone: string })
   .handler(async ({ data }) => {
     const { error } = await supabaseAdmin.from('volunteer_signups').insert(data)
     if (error) throw new Error(error.message)

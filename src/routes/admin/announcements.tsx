@@ -7,7 +7,7 @@ import { useState } from 'react'
 interface Announcement { id: string; title: string; body: string; category?: string; pinned: boolean }
 
 const upsertAnnouncement = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { id?: string; title: string; body: string; category: string; pinned: boolean })
+  .inputValidator((d: unknown) => d as { id?: string; title: string; body: string; category: string; pinned: boolean })
   .handler(async ({ data }) => {
     const { id, ...fields } = data
     if (id) {
@@ -19,7 +19,7 @@ const upsertAnnouncement = createServerFn({ method: 'POST' })
   })
 
 const deleteAnnouncement = createServerFn({ method: 'POST' })
-  .validator((d: unknown) => d as { id: string })
+  .inputValidator((d: unknown) => d as { id: string })
   .handler(async ({ data }) => {
     await supabaseAdmin.from('announcements').delete().eq('id', data.id)
     return { success: true }
