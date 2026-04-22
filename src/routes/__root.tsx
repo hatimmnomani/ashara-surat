@@ -1,6 +1,4 @@
 import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
 import { Nav } from '../components/layout/Nav'
 import { Footer } from '../components/layout/Footer'
 import { ChatWidget } from '../components/helpdesk/ChatWidget'
@@ -49,17 +47,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <Footer />
           <ChatWidget />
         </div>
-        <TanStackDevtools
-          config={{
-            position: 'bottom-right',
-          }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-          ]}
-        />
         <Scripts />
       </body>
     </html>
