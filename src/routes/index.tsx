@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { CountdownTimer } from '../components/ui/CountdownTimer'
 import { ModuleCard } from '../components/ui/ModuleCard'
+import { AlamMark } from '../components/ui/AlamMark'
 import { supabase } from '../lib/supabase'
 
 const MODULES = [
@@ -31,11 +32,13 @@ export const Route = createFileRoute('/')({
     const { pinned } = Route.useLoaderData()
     return (
       <div className="max-w-5xl mx-auto px-4 py-10">
-        <div className="text-center mb-10">
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-burgundy-400 to-transparent mx-auto mb-4" />
+        <div className="flex flex-col items-center text-center mb-10">
+          <AlamMark size="lg" className="mb-5" />
           <h1 className="text-4xl font-serif font-bold text-burgundy-700">Ashara Mubaraka</h1>
           <p className="text-burgundy-400 uppercase tracking-widest text-sm mt-1">Surat • 1447H</p>
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-burgundy-400 to-transparent mx-auto mt-4 mb-8" />
+          <div className="alam-divider w-48 mt-5 mb-6 text-xs uppercase tracking-[0.24em]">
+            <span>1447</span>
+          </div>
           <CountdownTimer />
         </div>
 
