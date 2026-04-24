@@ -24,6 +24,16 @@
   --color-burgundy-700: #7c2d42;
   --color-burgundy-800: #6b1f35;
   --color-burgundy-900: #5a1529;
+
+  /* Alam / tayeen accent trio — used for brand mark, sidebar brand, active indicator, dividers. */
+  --color-alam-green-700: #0f4d3a;
+  --color-alam-green-800: #0a3a2b;
+  --color-alam-green-900: #062820;
+  --color-alam-gold-300: #e7c77a;
+  --color-alam-gold-500: #c69b3d;
+  --color-alam-gold-700: #8a6a21;
+  --color-tear-red-500: #c8102e;
+  --color-tear-red-600: #a20b24;
 }
 
 :root {
@@ -46,6 +56,14 @@
   --link-bg-hover: rgba(255, 255, 255, 0.95);
   --hero-a: rgba(236, 117, 137, 0.2);
   --hero-b: rgba(201, 48, 85, 0.12);
+  --tear: #c8102e;
+  --tear-glow: rgba(200, 16, 46, 0.55);
+  --alam-green: #0a3a2b;
+  --alam-green-deep: #062820;
+  --alam-gold: #c69b3d;
+  --alam-gold-soft: #e7c77a;
+  --sidebar-w: 0px;
+  --sidebar-top: 0px;
 }
 
 :root[data-theme="dark"] {
@@ -68,6 +86,12 @@
   --link-bg-hover: rgba(76, 25, 44, 0.8);
   --hero-a: rgba(244, 168, 179, 0.15);
   --hero-b: rgba(236, 117, 137, 0.1);
+  --tear: #ef3b52;
+  --tear-glow: rgba(239, 59, 82, 0.55);
+  --alam-green: #0f4d3a;
+  --alam-green-deep: #0a3a2b;
+  --alam-gold: #e7c77a;
+  --alam-gold-soft: #f2ddaa;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -91,6 +115,12 @@
     --link-bg-hover: rgba(76, 25, 44, 0.8);
     --hero-a: rgba(244, 168, 179, 0.15);
     --hero-b: rgba(236, 117, 137, 0.1);
+    --tear: #ef3b52;
+    --tear-glow: rgba(239, 59, 82, 0.55);
+    --alam-green: #0f4d3a;
+    --alam-green-deep: #0a3a2b;
+    --alam-gold: #e7c77a;
+    --alam-gold-soft: #f2ddaa;
   }
 }
 
@@ -276,4 +306,41 @@ a {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Shell wrapper that reserves space for the fixed sidebar + mobile top bar. */
+.app-shell {
+  padding-left: var(--sidebar-w, 0px);
+  padding-top: var(--sidebar-top, 0px);
+  transition: padding-left 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hairline divider with a centered teardrop — reserve for major section breaks. */
+.alam-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--alam-gold);
+}
+
+.alam-divider::before,
+.alam-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--alam-gold), transparent);
+  opacity: 0.6;
+}
+
+/* Teardrop glow pulse — only when the user hasn't asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .tear-pulse {
+    animation: tear-pulse 2.8s ease-in-out infinite;
+    transform-origin: center;
+  }
+}
+
+@keyframes tear-pulse {
+  0%, 100% { transform: scale(0.98); filter: drop-shadow(0 0 6px var(--tear-glow)); }
+  50% { transform: scale(1); filter: drop-shadow(0 0 14px var(--tear-glow)); }
 }

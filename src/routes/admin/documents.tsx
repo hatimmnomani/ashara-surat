@@ -5,6 +5,7 @@ import { supabase } from '../../lib/supabase'
 import { deleteFromR2 } from '../../lib/r2'
 import { FileUpload } from '../../components/admin/FileUpload'
 import { useState } from 'react'
+import { TearDrop } from '../../components/ui/TearDrop'
 
 interface Doc { id: string; name: string; category?: string; file_url: string; r2_key?: string }
 
@@ -111,7 +112,12 @@ export const Route = createFileRoute('/admin/documents')({
                 className="text-xs bg-red-50 text-red-600 px-2 py-1 rounded hover:bg-red-100">Delete</button>
             </div>
           ))}
-          {docs.length === 0 && <p className="text-gray-400 text-sm">No documents yet.</p>}
+          {docs.length === 0 && (
+            <div className="flex flex-col items-center gap-3 py-10 text-[var(--sea-ink-soft)]">
+              <TearDrop size={40} muted />
+              <p className="text-sm">No documents yet.</p>
+            </div>
+          )}
         </div>
       </div>
     )

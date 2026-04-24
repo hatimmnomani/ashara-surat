@@ -1,5 +1,5 @@
 import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
-import { Nav } from '../components/layout/Nav'
+import { Sidebar } from '../components/layout/Sidebar'
 import { Footer } from '../components/layout/Footer'
 import { ChatWidget } from '../components/helpdesk/ChatWidget'
 
@@ -31,7 +31,7 @@ export const Route = createRootRoute({
   shellComponent: RootDocument,
 })
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootDocument() {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -39,8 +39,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="font-sans antialiased [overflow-wrap:anywhere]">
-        <div className="min-h-screen flex flex-col bg-ivory">
-          <Nav />
+        <Sidebar variant="public" />
+        <div className="app-shell min-h-screen flex flex-col">
           <main className="flex-1">
             <Outlet />
           </main>

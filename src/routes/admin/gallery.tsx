@@ -5,6 +5,7 @@ import { supabase } from '../../lib/supabase'
 import { deleteFromR2 } from '../../lib/r2'
 import { FileUpload } from '../../components/admin/FileUpload'
 import { useState } from 'react'
+import { TearDrop } from '../../components/ui/TearDrop'
 
 interface GalleryImage { id: string; url: string; caption?: string; event_tag?: string; r2_key?: string }
 
@@ -107,7 +108,12 @@ export const Route = createFileRoute('/admin/gallery')({
               </div>
             </div>
           ))}
-          {images.length === 0 && <p className="text-gray-400 text-sm col-span-4">No images yet.</p>}
+          {images.length === 0 && (
+            <div className="col-span-2 sm:col-span-3 md:col-span-4 flex flex-col items-center gap-3 py-10 text-[var(--sea-ink-soft)]">
+              <TearDrop size={40} muted />
+              <p className="text-sm">No images yet.</p>
+            </div>
+          )}
         </div>
       </div>
     )
