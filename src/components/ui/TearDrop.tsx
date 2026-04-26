@@ -1,3 +1,5 @@
+import React from 'react'
+
 interface TearDropProps {
   size?: number
   /** Adds a soft red drop-shadow halo. Use sparingly — for large standalone marks. */
@@ -39,8 +41,8 @@ export function TearDrop({
     `M ${cx} ${tipY}`,
     // Left side: tapers from point out to the circle's left shoulder.
     `C ${cx - arcR / 2} ${tipY + (arcY - tipY) * 0.35}, ${cx - arcR} ${tipY + (arcY - tipY) * 0.65}, ${cx - arcR} ${arcY}`,
-    // Bottom semicircle (clockwise in SVG user space).
-    `A ${arcR} ${arcR} 0 0 1 ${cx + arcR} ${arcY}`,
+    // Bottom semicircle. Switched sweep flag from 1 to 0 so it bulges down instead of folding up.
+    `A ${arcR} ${arcR} 0 0 0 ${cx + arcR} ${arcY}`,
     // Right side back to the point.
     `C ${cx + arcR} ${tipY + (arcY - tipY) * 0.65}, ${cx + arcR / 2} ${tipY + (arcY - tipY) * 0.35}, ${cx} ${tipY}`,
     'Z',
