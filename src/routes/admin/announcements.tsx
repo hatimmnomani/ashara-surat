@@ -3,6 +3,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { supabaseAdmin } from '../../lib/supabase'
 import { supabase } from '../../lib/supabase'
 import { useState } from 'react'
+import { TearDrop } from '../../components/ui/TearDrop'
 
 interface Announcement { id: string; title: string; body: string; category?: string; pinned: boolean }
 
@@ -99,7 +100,12 @@ export const Route = createFileRoute('/admin/announcements')({
               </div>
             </div>
           ))}
-          {items.length === 0 && <p className="text-gray-400 text-sm">No announcements yet.</p>}
+          {items.length === 0 && (
+            <div className="flex flex-col items-center gap-3 py-10 text-[var(--sea-ink-soft)]">
+              <TearDrop size={40} muted />
+              <p className="text-sm">No announcements yet.</p>
+            </div>
+          )}
         </div>
       </div>
     )

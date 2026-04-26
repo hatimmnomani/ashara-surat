@@ -1,6 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { CountdownTimer } from '../components/ui/CountdownTimer'
 import { ModuleCard } from '../components/ui/ModuleCard'
+import { AlamMark } from '../components/ui/AlamMark'
+import { HeroCarousel, type HeroSlide } from '../components/ui/HeroCarousel'
+import { TeardropFrieze } from '../components/ui/TeardropFrieze'
 import { supabase } from '../lib/supabase'
 
 const MODULES = [
@@ -17,6 +20,24 @@ const MODULES = [
   { icon: '💬', title: 'Helpdesk',      description: 'AI chat support',                 to: '/helpdesk' },
 ]
 
+const HERO_SLIDES: HeroSlide[] = [
+  {
+    src: '/d.webp',
+    alt: 'Mumineen gathered for waaz inside the masjid',
+    caption: 'Ashara Mubaraka 1447H · Surat',
+  },
+  {
+    src: '/1447-logo-320x320.webp',
+    alt: 'Official Ashara Mubaraka 1447H emblem',
+    caption: 'Niyaaz · 1447H',
+  },
+  {
+    src: '/1446-640x364.webp',
+    alt: 'Ashara Mubaraka 1446H Karachi commemorative panel',
+    caption: 'In remembrance · 1446H',
+  },
+]
+
 export const Route = createFileRoute('/')({
   loader: async () => {
     const { data } = await supabase
@@ -31,11 +52,17 @@ export const Route = createFileRoute('/')({
     const { pinned } = Route.useLoaderData()
     return (
       <div className="max-w-5xl mx-auto px-4 py-10">
-        <div className="text-center mb-10">
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-burgundy-400 to-transparent mx-auto mb-4" />
+        <div className="flex flex-col items-center text-center mb-8">
+          <AlamMark size="lg" className="mb-5" />
           <h1 className="text-4xl font-serif font-bold text-burgundy-700">Ashara Mubaraka</h1>
           <p className="text-burgundy-400 uppercase tracking-widest text-sm mt-1">Surat • 1447H</p>
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-burgundy-400 to-transparent mx-auto mt-4 mb-8" />
+        </div>
+
+        <TeardropFrieze className="mb-8 -mx-4 sm:mx-0 sm:rounded-lg overflow-hidden" height={48} />
+
+        <HeroCarousel slides={HERO_SLIDES} className="mb-10" />
+
+        <div className="flex justify-center mb-10">
           <CountdownTimer />
         </div>
 
@@ -53,6 +80,8 @@ export const Route = createFileRoute('/')({
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {MODULES.map(m => <ModuleCard key={m.to} {...m} />)}
         </div>
+
+        <TeardropFrieze className="mt-12 -mx-4 sm:mx-0 sm:rounded-lg overflow-hidden" height={36} />
       </div>
     )
   },
