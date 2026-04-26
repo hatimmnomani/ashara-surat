@@ -1,60 +1,52 @@
-import { TearDrop } from './TearDrop'
-
-type Size = 'sm' | 'md' | 'lg'
+type Size = 'sm' | 'md' | 'lg' | 'xl'
 
 interface AlamMarkProps {
   size?: Size
   className?: string
-  /** Skip the accessible label — use when a sibling heading already names the mark. */
+  caption?: string
   decorative?: boolean
 }
 
-const SIZING: Record<Size, { box: string; tear: number; panelH: string; panelW: string }> = {
-  sm: { box: 'gap-1', tear: 18, panelH: 'h-7', panelW: 'w-16' },
-  md: { box: 'gap-1.5', tear: 26, panelH: 'h-10', panelW: 'w-24' },
-  lg: { box: 'gap-2', tear: 44, panelH: 'h-16', panelW: 'w-40' },
+const SIZE_PX: Record<Size, number> = {
+  sm: 56,
+  md: 96,
+  lg: 168,
+  xl: 240,
 }
 
-export function AlamMark({ size = 'md', className, decorative = false }: AlamMarkProps) {
-  const dims = SIZING[size]
+/**
+ * The official Ashara Surat 1447H emblem — a green roundel with the gold-edged
+ * teardrop containing the calligraphic mark. Rendered from the bundled image
+ * so the typography stays accurate.
+ */
+export function AlamMark({
+  size = 'md',
+  className,
+  caption,
+  decorative = false,
+}: AlamMarkProps) {
+  const px = SIZE_PX[size]
   return (
     <div
       role={decorative ? 'presentation' : 'img'}
-      aria-label={decorative ? undefined : 'Ashara Surat emblem'}
-      className={['flex flex-col items-center', dims.box, className ?? ''].filter(Boolean).join(' ')}
+      aria-label={decorative ? undefined : `Ashara Mubaraka 1447H emblem${caption ? ` — ${caption}` : ''}`}
+      className={['inline-flex flex-col items-center gap-2', className ?? ''].filter(Boolean).join(' ')}
+      style={{ width: px }}
     >
-      <TearDrop size={dims.tear} glow />
-      <span aria-hidden="true" className="block w-px h-2 bg-[var(--alam-gold)] opacity-70" />
-      <div
-        aria-hidden="true"
-        className={[
-          'relative overflow-hidden rounded-md border',
-          dims.panelH,
-          dims.panelW,
-        ].join(' ')}
-        style={{
-          background:
-            'linear-gradient(160deg, var(--alam-green), var(--alam-green-deep))',
-          borderColor: 'var(--alam-gold)',
-          boxShadow: '0 6px 18px rgba(6,40,32,0.35), 0 0 0 1px rgba(230,199,122,0.2) inset',
-        }}
-      >
-        {/* Decorative gold hairline — abstract, not calligraphy. */}
-        <svg
-          viewBox="0 0 100 40"
-          preserveAspectRatio="none"
-          className="absolute inset-0 h-full w-full"
-        >
-          <path
-            d="M8 20 Q 22 6, 36 20 T 64 20 T 92 20"
-            stroke="var(--alam-gold-soft)"
-            strokeWidth={1.1}
-            fill="none"
-            opacity={0.85}
-          />
-          <circle cx="50" cy="20" r="1.6" fill="var(--alam-gold-soft)" />
-        </svg>
-      </div>
+      <img
+        src="/1447-logo-320x320.webp"
+        alt=""
+        width={px}
+        height={px}
+        loading="lazy"
+        decoding="async"
+        className="h-auto w-full rounded-full shadow-[0_10px_30px_rgba(10,58,43,0.25)] ring-1 ring-[var(--alam-gold)]/40"
+      />
+      {caption && (
+        <span className="rounded-full border border-[var(--alam-gold)] bg-[var(--alam-green-deep)] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-alam-gold-300)]">
+          {caption}
+        </span>
+      )}
     </div>
   )
 }
