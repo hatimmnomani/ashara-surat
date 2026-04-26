@@ -24,7 +24,7 @@ const HERO_SLIDES: HeroSlide[] = [
   {
     src: '/d.webp',
     alt: 'Mumineen gathered for waaz inside the masjid',
-    caption: 'Ashara Mubaraka 1448H · Surat',
+    caption: 'Ashara Mubaraka 1436H · Surat',
   },
   {
     src: '/1447-logo-320x320.webp',
