@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import React, { useId } from 'react'
 
 interface TeardropFriezeProps {
   /** Band height in px. Default 56. */
@@ -10,10 +10,9 @@ interface TeardropFriezeProps {
 }
 
 /**
- * Fatimid-inspired ornamental band: a single central red teardrop framed by
- * mirrored gold half-palmettes and a flowing arabesque vine on a cream ground.
- * Built as an SVG <pattern> at userSpaceOnUse so it tiles in pixel space —
- * no viewBox stretching, scrollwork detail stays crisp at every screen width.
+ * Fatimid-inspired ornamental band: a central red teardrop enveloped by a
+ * continuous gold ogee-arch halo, flanked by sweeping half-palmettes.
+ * Built as an SVG <pattern> at userSpaceOnUse so it tiles seamlessly.
  */
 export function TeardropFrieze({
   height = 56,
@@ -27,27 +26,53 @@ export function TeardropFrieze({
   const cx = unit / 2
   const cy = height / 2
 
-  // Vertical offsets relative to the centre line — scale gracefully with band height.
-  const k = height / 60
-  // Drop geometry: pointed top, semicircle bottom.
-  const dropTipY = cy - 20 * k
-  const dropArcY = cy + 6 * k
-  const dropArcR = 12 * k
+  // Universal scaling factor relative to default height 56
+  const k = height / 56
 
-  const dropPath = [
-    `M ${cx} ${dropTipY}`,
-    `C ${cx - dropArcR * 0.5} ${dropTipY + (dropArcY - dropTipY) * 0.35}, ${cx - dropArcR} ${dropTipY + (dropArcY - dropTipY) * 0.65}, ${cx - dropArcR} ${dropArcY}`,
-    `A ${dropArcR} ${dropArcR} 0 0 1 ${cx + dropArcR} ${dropArcY}`,
-    `C ${cx + dropArcR} ${dropTipY + (dropArcY - dropTipY) * 0.65}, ${cx + dropArcR * 0.5} ${dropTipY + (dropArcY - dropTipY) * 0.35}, ${cx} ${dropTipY}`,
-    'Z',
+  // ---------------------------------------------------------------------------
+  // Geometry Definitions
+  // We only define the LEFT HALF of the symmetrical elements.
+  // The SVG <use> tag will mirror them perfectly across the center X axis.
+  // ---------------------------------------------------------------------------
+
+  // The main continuous flowing vine. It now swoops all the way to x=0
+  // with perfectly vertical tangents so it seamlessly connects to adjacent tiles.
+  const vineLeftHalf = [
+    `M ${cx} ${48 * k}`, // Starts at the bottom center of the halo
+    `A ${14 * k} ${14 * k} 0 0 1 ${cx - 14 * k} ${34 * k}`, // Sweeps up the left side
+    `C ${cx - 14 * k} ${26 * k}, ${cx - 8 * k} ${16 * k}, ${cx} ${12 * k}`, // Ogee arch pointing up
+    `C ${cx - 16 * k} ${8 * k}, ${cx - 40 * k} ${8 * k}, ${cx - 60 * k} ${14 * k}`, // Swoops down and out
+    // Key Fix: Reaches exactly x=0 with vertical control points so it tiles seamlessly
+    `C ${cx - 90 * k} ${22 * k}, 0 ${18 * k}, 0 ${cy}`,
+    // Loops back from the edge
+    `C 0 ${38 * k}, ${cx - 90 * k} ${34 * k}, ${cx - 60 * k} ${42 * k}`,
+    `C ${cx - 40 * k} ${48 * k}, ${cx - 16 * k} ${48 * k}, ${cx - 14 * k} ${34 * k}`, // Sweeps back into the halo
   ].join(' ')
 
-  const dropInnerPath = [
-    `M ${cx} ${dropTipY + 2 * k}`,
-    `C ${cx - (dropArcR - 1) * 0.5} ${dropTipY + (dropArcY - dropTipY) * 0.4}, ${cx - (dropArcR - 1.4)} ${dropTipY + (dropArcY - dropTipY) * 0.65}, ${cx - (dropArcR - 1.4)} ${dropArcY}`,
-    `A ${dropArcR - 1.4} ${dropArcR - 1.4} 0 0 1 ${cx + (dropArcR - 1.4)} ${dropArcY}`,
-    `C ${cx + (dropArcR - 1.4)} ${dropTipY + (dropArcY - dropTipY) * 0.65}, ${cx + (dropArcR - 1) * 0.5} ${dropTipY + (dropArcY - dropTipY) * 0.4}, ${cx} ${dropTipY + 2 * k}`,
-    'Z',
+  // The large lower leaf pointing outwards
+  const leftLowerLeaf = [
+    `M ${cx - 25 * k} ${42 * k}`,
+    `C ${cx - 35 * k} ${32 * k}, ${cx - 50 * k} ${28 * k}, ${cx - 60 * k} ${34 * k}`,
+    `C ${cx - 55 * k} ${38 * k}, ${cx - 50 * k} ${42 * k}, ${cx - 48 * k} ${46 * k}`,
+    `C ${cx - 38 * k} ${46 * k}, ${cx - 30 * k} ${46 * k}, ${cx - 25 * k} ${42 * k} Z`,
+  ].join(' ')
+
+  // The large upper leaf curling inwards towards the teardrop
+  const leftUpperLeaf = [
+    `M ${cx - 35 * k} ${12 * k}`,
+    `C ${cx - 30 * k} ${20 * k}, ${cx - 25 * k} ${25 * k}, ${cx - 22 * k} ${30 * k}`,
+    `C ${cx - 28 * k} ${28 * k}, ${cx - 38 * k} ${26 * k}, ${cx - 42 * k} ${30 * k}`,
+    `C ${cx - 48 * k} ${24 * k}, ${cx - 50 * k} ${16 * k}, ${cx - 54 * k} ${12 * k}`,
+    `C ${cx - 48 * k} ${10 * k}, ${cx - 42 * k} ${10 * k}, ${cx - 35 * k} ${12 * k} Z`,
+  ].join(' ')
+
+  // The central floating red teardrop
+  const dropPath = [
+    `M ${cx} ${18 * k}`,
+    `C ${cx - 9 * k} ${24 * k}, ${cx - 10 * k} ${30 * k}, ${cx - 10 * k} ${35 * k}`,
+    `A ${10 * k} ${10 * k} 0 0 0 ${cx + 10 * k} ${35 * k}`,
+    `C ${cx + 10 * k} ${30 * k}, ${cx + 9 * k} ${24 * k}, ${cx} ${18 * k}`,
+    `Z`,
   ].join(' ')
 
   return (
@@ -62,92 +87,50 @@ export function TeardropFrieze({
     >
       {title && <title>{title}</title>}
       <defs>
-        {/* Left half of the arabesque flourish — drawn once, mirrored for the right. */}
+        {/* We define the left half of the intricate elements here to mirror later */}
         <g id={halfId}>
-          {/* Outer terminal scroll */}
-          <circle cx="6" cy={cy} r={2.4 * k} fill="none" stroke="var(--alam-gold)" strokeWidth="1" />
-          <circle cx="6" cy={cy} r={0.9 * k} fill="var(--alam-gold)" />
-
-          {/* Primary undulating vine connecting outer terminal to drop */}
+          {/* Main skeleton vine */}
           <path
-            d={`M 8 ${cy}
-                C 18 ${cy - 12 * k}, 32 ${cy - 14 * k}, 44 ${cy - 6 * k}
-                C 56 ${cy + 2 * k}, 70 ${cy + 6 * k}, 82 ${cy - 4 * k}
-                C 92 ${cy - 12 * k}, 102 ${cy - 8 * k}, ${cx - 14} ${cy}`}
+            d={vineLeftHalf}
             fill="none"
             stroke="var(--alam-gold)"
-            strokeWidth={1.4 * k}
+            strokeWidth={2 * k}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+          {/* Palmette Leaves */}
+          <path d={leftLowerLeaf} fill="var(--alam-gold)" />
+          <path d={leftUpperLeaf} fill="var(--alam-gold)" />
+
+          {/* Incised leaf veins (cream cutouts) */}
+          <path
+            d={`M ${cx - 28 * k} ${41 * k} Q ${cx - 45 * k} ${35 * k} ${cx - 55 * k} ${37 * k}`}
+            fill="none"
+            stroke="#f4ead5"
+            strokeWidth={1 * k}
             strokeLinecap="round"
           />
-          {/* Mirror vine (below) */}
           <path
-            d={`M 8 ${cy}
-                C 18 ${cy + 12 * k}, 32 ${cy + 14 * k}, 44 ${cy + 6 * k}
-                C 56 ${cy - 2 * k}, 70 ${cy - 6 * k}, 82 ${cy + 4 * k}
-                C 92 ${cy + 12 * k}, 102 ${cy + 8 * k}, ${cx - 14} ${cy}`}
+            d={`M ${cx - 35 * k} ${15 * k} Q ${cx - 40 * k} ${20 * k} ${cx - 46 * k} ${24 * k}`}
+            fill="none"
+            stroke="#f4ead5"
+            strokeWidth={1 * k}
+            strokeLinecap="round"
+          />
+
+          {/* Seam Clasp: Centered exactly at x=0. When adjacent tiles touch,
+              the left and right halves of this motif merge into a complete diamond knot. */}
+          <path
+            d={`M 0 ${cy - 14 * k} C ${10 * k} ${cy - 14 * k}, ${14 * k} ${cy - 8 * k}, ${14 * k} ${cy} C ${14 * k} ${cy + 8 * k}, ${10 * k} ${cy + 14 * k}, 0 ${cy + 14 * k}`}
             fill="none"
             stroke="var(--alam-gold)"
-            strokeWidth={1.4 * k}
-            strokeLinecap="round"
+            strokeWidth={2 * k}
           />
-
-          {/* Outer half-palmettes (filled) */}
           <path
-            d={`M 24 ${cy - 14 * k}
-                C 32 ${cy - 18 * k}, 42 ${cy - 14 * k}, 40 ${cy - 6 * k}
-                C 36 ${cy - 4 * k}, 30 ${cy - 6 * k}, 24 ${cy - 14 * k} Z`}
+            d={`M 0 ${cy - 8 * k} C ${5 * k} ${cy - 8 * k}, ${7 * k} ${cy - 4 * k}, ${7 * k} ${cy} C ${7 * k} ${cy + 4 * k}, ${5 * k} ${cy + 8 * k}, 0 ${cy + 8 * k}`}
             fill="var(--alam-gold)"
-            stroke="var(--color-alam-gold-700)"
-            strokeWidth="0.4"
           />
-          <path
-            d={`M 24 ${cy + 14 * k}
-                C 32 ${cy + 18 * k}, 42 ${cy + 14 * k}, 40 ${cy + 6 * k}
-                C 36 ${cy + 4 * k}, 30 ${cy + 6 * k}, 24 ${cy + 14 * k} Z`}
-            fill="var(--alam-gold)"
-            stroke="var(--color-alam-gold-700)"
-            strokeWidth="0.4"
-          />
-
-          {/* Mid leaves (lighter gold) */}
-          <path
-            d={`M 60 ${cy - 10 * k}
-                C 66 ${cy - 14 * k}, 76 ${cy - 10 * k}, 74 ${cy - 4 * k}
-                C 70 ${cy - 2 * k}, 64 ${cy - 4 * k}, 60 ${cy - 10 * k} Z`}
-            fill="var(--color-alam-gold-300)"
-            stroke="var(--color-alam-gold-700)"
-            strokeWidth="0.4"
-          />
-          <path
-            d={`M 60 ${cy + 10 * k}
-                C 66 ${cy + 14 * k}, 76 ${cy + 10 * k}, 74 ${cy + 4 * k}
-                C 70 ${cy + 2 * k}, 64 ${cy + 4 * k}, 60 ${cy + 10 * k} Z`}
-            fill="var(--color-alam-gold-300)"
-            stroke="var(--color-alam-gold-700)"
-            strokeWidth="0.4"
-          />
-
-          {/* Large inner half-palmette adjacent to the central drop */}
-          <path
-            d={`M ${cx - 24} ${cy - 16 * k}
-                C ${cx - 12} ${cy - 18 * k}, ${cx - 8} ${cy - 10 * k}, ${cx - 14} ${cy}
-                C ${cx - 8} ${cy + 10 * k}, ${cx - 12} ${cy + 18 * k}, ${cx - 24} ${cy + 16 * k}
-                C ${cx - 28} ${cy + 8 * k}, ${cx - 28} ${cy - 8 * k}, ${cx - 24} ${cy - 16 * k} Z`}
-            fill="var(--alam-gold)"
-            stroke="var(--color-alam-gold-700)"
-            strokeWidth="0.5"
-          />
-          <path
-            d={`M ${cx - 22} ${cy - 8 * k}
-                Q ${cx - 18} ${cy}, ${cx - 22} ${cy + 8 * k}`}
-            stroke="var(--color-alam-gold-700)"
-            strokeWidth="0.6"
-            fill="none"
-          />
-
-          {/* Accent dots in gaps */}
-          <circle cx="50" cy={cy} r={1.1 * k} fill="var(--alam-gold)" />
-          <circle cx="86" cy={cy} r={0.9 * k} fill="var(--color-alam-gold-700)" />
         </g>
 
         <pattern
@@ -158,41 +141,30 @@ export function TeardropFrieze({
           height={height}
           patternUnits="userSpaceOnUse"
         >
-          {/* Cream/beige ground */}
-          <rect width={unit} height={height} fill="#e7d8b6" />
+          {/* Creamy architectural ground */}
+          <rect width={unit} height={height} fill="#f4ead5" />
 
-          {/* Top + bottom gold edge bands */}
-          <rect width={unit} height={2 * k} fill="var(--alam-gold)" />
-          <rect y={height - 2 * k} width={unit} height={2 * k} fill="var(--alam-gold)" />
-          <rect y={3.5 * k} width={unit} height={0.6 * k} fill="var(--color-alam-gold-700)" opacity="0.55" />
-          <rect y={height - 4.1 * k} width={unit} height={0.6 * k} fill="var(--color-alam-gold-700)" opacity="0.55" />
+          {/* Thick rigid top/bottom borders */}
+          <rect width={unit} height={3.5 * k} fill="var(--alam-gold)" />
+          <rect y={height - 3.5 * k} width={unit} height={3.5 * k} fill="var(--alam-gold)" />
 
-          {/* Left half */}
+          {/* Thin internal trace bands */}
+          <rect y={4.5 * k} width={unit} height={1 * k} fill="var(--alam-gold)" opacity="0.5" />
+          <rect y={height - 5.5 * k} width={unit} height={1 * k} fill="var(--alam-gold)" opacity="0.5" />
+
+          {/* Left half of the ornament */}
           <use href={`#${halfId}`} />
-          {/* Right half — mirrored */}
+          {/* Right half — dynamically mirrored so the paths flawlessly connect in the center */}
           <use href={`#${halfId}`} transform={`translate(${unit},0) scale(-1,1)`} />
 
-          {/* Central red teardrop — pointed top, semicircle bottom */}
+          {/* Floating Central Red Teardrop */}
+          <path d={dropPath} fill="var(--tear)" />
+
+          {/* Glassy white highlight inside the teardrop */}
           <path
-            d={dropPath}
-            fill="var(--tear)"
-            stroke="var(--alam-gold)"
-            strokeWidth={1.2 * k}
-          />
-          {/* Inner gold rim */}
-          <path
-            d={dropInnerPath}
-            fill="none"
-            stroke="var(--color-alam-gold-300)"
-            strokeWidth="0.5"
-            opacity="0.85"
-          />
-          {/* White highlight tracing the upper-left curve */}
-          <path
-            d={`M ${cx - dropArcR * 0.55} ${dropTipY + (dropArcY - dropTipY) * 0.45}
-                C ${cx - dropArcR + 1} ${dropTipY + (dropArcY - dropTipY) * 0.7}, ${cx - dropArcR + 0.5} ${dropArcY - 2}, ${cx - dropArcR + 1.5} ${dropArcY + 2}`}
+            d={`M ${cx - 4 * k} ${26 * k} C ${cx - 7 * k} ${30 * k}, ${cx - 7 * k} ${35 * k}, ${cx - 5 * k} ${39 * k}`}
             stroke="rgba(255,255,255,0.55)"
-            strokeWidth="1.1"
+            strokeWidth={1 * k}
             strokeLinecap="round"
             fill="none"
           />
@@ -200,5 +172,33 @@ export function TeardropFrieze({
       </defs>
       <rect width="100%" height={height} fill={`url(#${patternId})`} />
     </svg>
+  )
+}
+
+// Added wrapper to satisfy the preview environment
+export default function App() {
+  return (
+    <div
+      style={{
+        '--tear': '#d9383a', // Warmer reference red
+        '--alam-gold': '#c4a671', // Flat gold of the reference
+        '--color-alam-gold-700': '#9b7d46',
+      } as React.CSSProperties}
+      className="flex flex-col items-center justify-center min-h-screen bg-neutral-900 w-full"
+    >
+      {/* Container is kept ultra-wide (w-full max-w-5xl) so that you can see
+        multiple 240px units repeating horizontally in the preview!
+      */}
+      <div className="w-full max-w-5xl px-4 flex flex-col gap-16">
+        <div className="w-full">
+          <h3 className="text-white/50 text-sm font-mono mb-4">Standard Height (56px) - Tiling Preview</h3>
+          <TeardropFrieze />
+        </div>
+        <div className="w-full">
+          <h3 className="text-white/50 text-sm font-mono mb-4">Large Height (112px) - Tiling Preview</h3>
+          <TeardropFrieze height={112} unit={480} />
+        </div>
+      </div>
+    </div>
   )
 }
