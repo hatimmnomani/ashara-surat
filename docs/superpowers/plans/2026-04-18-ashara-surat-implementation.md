@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a full-stack web application for Ashara Mubaraka Surat 1447H — a public information portal with 12 modules, AI-powered helpdesk chat with ticket escalation, and an organiser admin panel.
+**Goal:** Build a full-stack web application for Ashara Mubaraka Surat 1448H — a public information portal with 12 modules, AI-powered helpdesk chat with ticket escalation, and an organiser admin panel.
 
 **Architecture:** Single TanStack Start (SSR) application with Supabase for data/storage/realtime. All pages are public now; a feature flag `ITS_AUTH_ENABLED` gates 4 modules behind ITS OneLogin SSO in a future phase. The AI helpdesk uses an OpenAI-compatible LLM API abstracted via env vars (OpenRouter / Ollama / z.ai).
 
@@ -475,7 +475,7 @@ export function Nav() {
   return (
     <nav className="bg-burgundy-700 text-ivory px-6 py-3 flex items-center justify-between flex-wrap gap-3">
       <Link to="/" className="font-serif font-bold text-lg text-ivory hover:text-burgundy-100">
-        🕌 Ashara Surat 1447H
+        🕌 Ashara Surat 1448H
       </Link>
       <div className="flex flex-wrap gap-4 text-sm">
         {links.map(l => (
@@ -496,7 +496,7 @@ export function Nav() {
 export function Footer() {
   return (
     <footer className="bg-burgundy-800 text-burgundy-200 text-center text-sm py-6 mt-auto">
-      <p>Ashara Mubaraka Surat 1447H</p>
+      <p>Ashara Mubaraka Surat 1448H</p>
       <p className="text-burgundy-400 text-xs mt-1">
         Under the leadership of His Holiness Dr Syedna Mufaddal Saifuddin TUS
       </p>
@@ -587,7 +587,7 @@ Expected: FAIL — `getDaysUntil` not exported.
 // app/components/ui/CountdownTimer.tsx
 import { useState, useEffect } from 'react'
 
-// Update to the actual first day of Ashara 1447H once confirmed
+// Update to the actual first day of Ashara 1448H once confirmed
 const ASHARA_DATE = new Date('2026-09-01T00:00:00')
 
 export function getDaysUntil(target: Date): number {
@@ -693,7 +693,7 @@ export const Route = createFileRoute('/')({
         <div className="text-center mb-10">
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-burgundy-400 to-transparent mx-auto mb-4" />
           <h1 className="text-4xl font-serif font-bold text-burgundy-700">Ashara Mubaraka</h1>
-          <p className="text-burgundy-400 uppercase tracking-widest text-sm mt-1">Surat • 1447H</p>
+          <p className="text-burgundy-400 uppercase tracking-widest text-sm mt-1">Surat • 1448H</p>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-burgundy-400 to-transparent mx-auto mt-4 mb-8" />
           <CountdownTimer />
         </div>
@@ -1546,7 +1546,7 @@ import { supabaseAdmin } from '../lib/supabase'
 import { buildLLMClient } from '../lib/llm'
 import { isRateLimited, incrementMessageCount } from '../lib/rateLimit'
 
-const SYSTEM_PROMPT = `You are a helpful assistant for Ashara Mubaraka Surat 1447H.
+const SYSTEM_PROMPT = `You are a helpful assistant for Ashara Mubaraka Surat 1448H.
 Help visiting mumineen with questions about schedules, accommodation, transport, food zones, and general event information.
 Be warm, respectful, and concise. If you don't know something, suggest they contact the helpdesk.
 Always respond in English.`
@@ -1762,7 +1762,7 @@ export function ChatWidget() {
   async function handleContactSubmit(contact: { name: string; phone: string; email: string; whatsapp: string }) {
     const { sessionId: id } = await createChatSession({ data: contact })
     setSessionId(id)
-    setMessages([{ role: 'assistant', content: `Wa'alaikum salaam ${contact.name}! How can I help you with Ashara Surat 1447H?` }])
+    setMessages([{ role: 'assistant', content: `Wa'alaikum salaam ${contact.name}! How can I help you with Ashara Surat 1448H?` }])
   }
 
   async function handleSend() {
@@ -1890,7 +1890,7 @@ export const Route = createFileRoute('/helpdesk')({
         <div className="text-5xl mb-4">💬</div>
         <h1 className="text-3xl font-serif text-burgundy-700 mb-3">Helpdesk</h1>
         <p className="text-gray-500 mb-4">
-          Our AI assistant is available 24/7 for questions about Ashara Surat 1447H.
+          Our AI assistant is available 24/7 for questions about Ashara Surat 1448H.
         </p>
         <p className="text-sm text-gray-400">
           Use the chat button in the bottom-right corner to get started.

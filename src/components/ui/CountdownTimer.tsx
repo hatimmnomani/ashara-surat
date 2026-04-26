@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-// First day of Ashara Mubaraka 1447H
+// First day of Ashara Mubaraka 1448H
 const ASHARA_DATE = new Date('2026-06-16T00:00:00')
 
 export function getDaysUntil(target: Date): number {

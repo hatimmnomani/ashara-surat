@@ -15,7 +15,7 @@ const SIZE_PX: Record<Size, number> = {
 }
 
 /**
- * The official Ashara Surat 1447H emblem — a green roundel with the gold-edged
+ * The official Ashara Surat 1448H emblem — a green roundel with the gold-edged
  * teardrop containing the calligraphic mark. Rendered from the bundled image
  * so the typography stays accurate.
  */
@@ -29,7 +29,7 @@ export function AlamMark({
   return (
     <div
       role={decorative ? 'presentation' : 'img'}
-      aria-label={decorative ? undefined : `Ashara Mubaraka 1447H emblem${caption ? ` — ${caption}` : ''}`}
+      aria-label={decorative ? undefined : `Ashara Mubaraka 1448H emblem${caption ? ` — ${caption}` : ''}`}
       className={['inline-flex flex-col items-center gap-2', className ?? ''].filter(Boolean).join(' ')}
       style={{ width: px }}
     >

@@ -21,7 +21,7 @@ export function ChatWidget() {
   async function handleContactSubmit(contact: { name: string; phone: string; email: string; whatsapp: string }) {
     const { sessionId: id } = await createChatSession({ data: contact })
     setSessionId(id)
-    setMessages([{ role: 'assistant', content: `Wa'alaikum salaam ${contact.name}! How can I help you with Ashara Surat 1447H?` }])
+    setMessages([{ role: 'assistant', content: `Wa'alaikum salaam ${contact.name}! How can I help you with Ashara Surat 1448H?` }])
   }
 
   async function handleSend() {

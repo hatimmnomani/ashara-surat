@@ -7,7 +7,7 @@ export const Route = createFileRoute('/helpdesk')({
         <div className="text-5xl mb-4">💬</div>
         <h1 className="text-3xl font-serif text-burgundy-700 mb-3">Helpdesk</h1>
         <p className="text-gray-500 mb-4">
-          Our AI assistant is available 24/7 for questions about Ashara Surat 1447H.
+          Our AI assistant is available 24/7 for questions about Ashara Surat 1448H.
         </p>
         <p className="text-sm text-gray-400">
           Use the chat button in the bottom-right corner to get started.

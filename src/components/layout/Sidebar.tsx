@@ -77,7 +77,7 @@ export function Sidebar({ variant, onSignOut }: SidebarProps) {
           <div className="text-center leading-tight">
             <p className="font-serif text-sm text-[var(--sea-ink)]">Ashara Surat</p>
             <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--sea-ink-soft)]">
-              1447H
+              1448H
             </p>
           </div>
           {isAdmin && (

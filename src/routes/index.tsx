@@ -24,12 +24,12 @@ const HERO_SLIDES: HeroSlide[] = [
   {
     src: '/d.webp',
     alt: 'Mumineen gathered for waaz inside the masjid',
-    caption: 'Ashara Mubaraka 1447H · Surat',
+    caption: 'Ashara Mubaraka 1448H · Surat',
   },
   {
     src: '/1447-logo-320x320.webp',
-    alt: 'Official Ashara Mubaraka 1447H emblem',
-    caption: 'Niyaaz · 1447H',
+    alt: 'Official Ashara Mubaraka 1448H emblem',
+    caption: 'Niyaaz · 1448H',
   },
   {
     src: '/1446-640x364.webp',
@@ -55,7 +55,7 @@ export const Route = createFileRoute('/')({
         <div className="flex flex-col items-center text-center mb-8">
           <AlamMark size="lg" className="mb-5" />
           <h1 className="text-4xl font-serif font-bold text-burgundy-700">Ashara Mubaraka</h1>
-          <p className="text-burgundy-400 uppercase tracking-widest text-sm mt-1">Surat • 1447H</p>
+          <p className="text-burgundy-400 uppercase tracking-widest text-sm mt-1">Surat • 1448H</p>
         </div>
 
         <TeardropFrieze className="mb-8 -mx-4 sm:mx-0 sm:rounded-lg overflow-hidden" height={48} />

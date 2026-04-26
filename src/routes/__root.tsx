@@ -18,7 +18,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'Ashara Mubaraka Surat 1447H',
+        title: 'Ashara Mubaraka Surat 1448H',
       },
     ],
     links: [
