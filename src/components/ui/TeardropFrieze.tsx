@@ -29,10 +29,26 @@ export function TeardropFrieze({
 
   // Vertical offsets relative to the centre line — scale gracefully with band height.
   const k = height / 60
-  const dropTop = cy - 20 * k
-  const dropBot = cy + 20 * k
-  const dropHalfW = 16 * k
-  const dropMid = 13 * k
+  // Drop geometry: pointed top, semicircle bottom.
+  const dropTipY = cy - 20 * k
+  const dropArcY = cy + 6 * k
+  const dropArcR = 12 * k
+
+  const dropPath = [
+    `M ${cx} ${dropTipY}`,
+    `C ${cx - dropArcR * 0.5} ${dropTipY + (dropArcY - dropTipY) * 0.35}, ${cx - dropArcR} ${dropTipY + (dropArcY - dropTipY) * 0.65}, ${cx - dropArcR} ${dropArcY}`,
+    `A ${dropArcR} ${dropArcR} 0 0 1 ${cx + dropArcR} ${dropArcY}`,
+    `C ${cx + dropArcR} ${dropTipY + (dropArcY - dropTipY) * 0.65}, ${cx + dropArcR * 0.5} ${dropTipY + (dropArcY - dropTipY) * 0.35}, ${cx} ${dropTipY}`,
+    'Z',
+  ].join(' ')
+
+  const dropInnerPath = [
+    `M ${cx} ${dropTipY + 2 * k}`,
+    `C ${cx - (dropArcR - 1) * 0.5} ${dropTipY + (dropArcY - dropTipY) * 0.4}, ${cx - (dropArcR - 1.4)} ${dropTipY + (dropArcY - dropTipY) * 0.65}, ${cx - (dropArcR - 1.4)} ${dropArcY}`,
+    `A ${dropArcR - 1.4} ${dropArcR - 1.4} 0 0 1 ${cx + (dropArcR - 1.4)} ${dropArcY}`,
+    `C ${cx + (dropArcR - 1.4)} ${dropTipY + (dropArcY - dropTipY) * 0.65}, ${cx + (dropArcR - 1) * 0.5} ${dropTipY + (dropArcY - dropTipY) * 0.4}, ${cx} ${dropTipY + 2 * k}`,
+    'Z',
+  ].join(' ')
 
   return (
     <svg
@@ -156,30 +172,26 @@ export function TeardropFrieze({
           {/* Right half — mirrored */}
           <use href={`#${halfId}`} transform={`translate(${unit},0) scale(-1,1)`} />
 
-          {/* Central red plump teardrop */}
+          {/* Central red teardrop — pointed top, semicircle bottom */}
           <path
-            d={`M ${cx} ${dropTop}
-                C ${cx - dropHalfW} ${cy - 8 * k}, ${cx - dropMid} ${cy + 6 * k}, ${cx} ${dropBot}
-                C ${cx + dropMid} ${cy + 6 * k}, ${cx + dropHalfW} ${cy - 8 * k}, ${cx} ${dropTop} Z`}
+            d={dropPath}
             fill="var(--tear)"
             stroke="var(--alam-gold)"
             strokeWidth={1.2 * k}
           />
           {/* Inner gold rim */}
           <path
-            d={`M ${cx} ${dropTop + 3 * k}
-                C ${cx - dropHalfW + 2} ${cy - 6 * k}, ${cx - dropMid + 2} ${cy + 5 * k}, ${cx} ${dropBot - 3 * k}
-                C ${cx + dropMid - 2} ${cy + 5 * k}, ${cx + dropHalfW - 2} ${cy - 6 * k}, ${cx} ${dropTop + 3 * k} Z`}
+            d={dropInnerPath}
             fill="none"
             stroke="var(--color-alam-gold-300)"
             strokeWidth="0.5"
             opacity="0.85"
           />
-          {/* White highlight */}
+          {/* White highlight tracing the upper-left curve */}
           <path
-            d={`M ${cx - 6} ${cy - 12 * k}
-                C ${cx - 8} ${cy - 4 * k}, ${cx - 8} ${cy + 4 * k}, ${cx - 6} ${cy + 12 * k}`}
-            stroke="rgba(255,255,255,0.5)"
+            d={`M ${cx - dropArcR * 0.55} ${dropTipY + (dropArcY - dropTipY) * 0.45}
+                C ${cx - dropArcR + 1} ${dropTipY + (dropArcY - dropTipY) * 0.7}, ${cx - dropArcR + 0.5} ${dropArcY - 2}, ${cx - dropArcR + 1.5} ${dropArcY + 2}`}
+            stroke="rgba(255,255,255,0.55)"
             strokeWidth="1.1"
             strokeLinecap="round"
             fill="none"
