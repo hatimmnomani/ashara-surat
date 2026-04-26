@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
-// Update to actual first day of Ashara 1447H once confirmed
-const ASHARA_DATE = new Date('2026-07-16T00:00:00')
+// First day of Ashara Mubaraka 1447H
+const ASHARA_DATE = new Date('2026-06-16T00:00:00')
 
 export function getDaysUntil(target: Date): number {
   const diff = target.getTime() - Date.now()
