@@ -34,13 +34,13 @@ export function AlamMark({
       style={{ width: px }}
     >
       <img
-        src="/1447-logo-320x320.webp"
+        src="/logo2.png"
         alt=""
         width={px}
         height={px}
         loading="lazy"
         decoding="async"
-        className="h-auto w-full rounded-full shadow-[0_10px_30px_rgba(10,58,43,0.25)] ring-1 ring-[var(--alam-gold)]/40"
+        className="h-auto w-full"
       />
       {caption && (
         <span className="rounded-full border border-[var(--alam-gold)] bg-[var(--alam-green-deep)] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-alam-gold-300)]">
