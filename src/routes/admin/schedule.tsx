@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { supabaseAdmin } from '../../lib/supabase'
 import { supabase } from '../../lib/supabase'
@@ -38,13 +38,14 @@ export const Route = createFileRoute('/admin/schedule')({
     const [items, setItems] = useState<ScheduleEvent[]>(initial)
     const [form, setForm] = useState(EMPTY_FORM)
     const [editId, setEditId] = useState<string | null>(null)
+    const router = useRouter()
 
     async function handleSubmit(e: React.FormEvent) {
       e.preventDefault()
       await upsertEvent({ data: editId ? { ...form, id: editId } : form })
       setForm(EMPTY_FORM)
       setEditId(null)
-      window.location.reload()
+      await router.invalidate()
     }
 
     return (
