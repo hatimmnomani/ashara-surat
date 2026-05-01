@@ -53,7 +53,7 @@ export const Route = createFileRoute('/')({
     return (
       <div className="max-w-5xl mx-auto px-4 py-10">
         <div className="flex flex-col items-center text-center mb-8">
-          <AlamMark size="lg" className="mb-5" />
+          <AlamMark size="lg" fluid className="mb-5" />
           <h1 className="text-4xl font-serif font-bold text-burgundy-700">Ashara Mubaraka</h1>
           <p className="text-burgundy-400 uppercase tracking-widest text-sm mt-1">Surat • 1448H</p>
         </div>

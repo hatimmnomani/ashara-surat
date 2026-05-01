@@ -2,6 +2,8 @@ type Size = 'sm' | 'md' | 'lg' | 'xl'
 
 interface AlamMarkProps {
   size?: Size
+  /** Full-width on mobile, capped at size px on sm+. */
+  fluid?: boolean
   className?: string
   caption?: string
   decorative?: boolean
@@ -14,13 +16,9 @@ const SIZE_PX: Record<Size, number> = {
   xl: 240,
 }
 
-/**
- * The official Ashara Surat 1448H emblem — a green roundel with the gold-edged
- * teardrop containing the calligraphic mark. Rendered from the bundled image
- * so the typography stays accurate.
- */
 export function AlamMark({
   size = 'md',
+  fluid = false,
   className,
   caption,
   decorative = false,
@@ -30,8 +28,12 @@ export function AlamMark({
     <div
       role={decorative ? 'presentation' : 'img'}
       aria-label={decorative ? undefined : `Ashara Mubaraka 1448H emblem${caption ? ` — ${caption}` : ''}`}
-      className={['inline-flex flex-col items-center gap-2', className ?? ''].filter(Boolean).join(' ')}
-      style={{ width: px }}
+      className={[
+        'flex flex-col items-center gap-2',
+        fluid ? 'w-full' : '',
+        className ?? '',
+      ].filter(Boolean).join(' ')}
+      style={fluid ? { maxWidth: px } : { width: px }}
     >
       <img
         src="/logo2.png"
