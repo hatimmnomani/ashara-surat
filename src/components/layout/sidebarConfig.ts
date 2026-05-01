@@ -72,6 +72,7 @@ export const adminNav: NavGroup[] = [
     items: [
       { to: '/admin/announcements', label: 'Announcements', icon: Megaphone },
       { to: '/admin/schedule', label: 'Schedule', icon: CalendarDays },
+      { to: '/admin/venue', label: 'Venues', icon: MapPin },
       { to: '/admin/documents', label: 'Documents', icon: FileText },
       { to: '/admin/gallery', label: 'Gallery', icon: Images },
     ],
