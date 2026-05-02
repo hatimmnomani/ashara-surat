@@ -7,7 +7,14 @@ export const Route = createFileRoute('/venue')({
   loader: async () => {
     const { data, error } = await supabase.from('venues').select('*').order('sort_order').order('name')
     if (error) throw new Error(error.message)
-    return { venues: (data ?? []) as Venue[] }
+    const venues = (data ?? []) as Venue[]
+    venues.sort((a, b) => {
+      const aIsCmz = a.zone?.trim().toUpperCase() === 'CMZ'
+      const bIsCmz = b.zone?.trim().toUpperCase() === 'CMZ'
+      if (aIsCmz !== bIsCmz) return aIsCmz ? -1 : 1
+      return 0
+    })
+    return { venues }
   },
   component: function VenuePage() {
     const { venues } = Route.useLoaderData()
